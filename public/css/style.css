@@ -1,0 +1,26 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: linear-gradient(270deg, #101010, #b02e2e);
+    background-size: 400% 400%;
+    height: 100vh;
+    animation: AnimationName 47s ease infinite;
+}
+
+@keyframes AnimationName {
+    0% {
+        background-position: 14% 0%
+    }
+
+    50% {
+        background-position: 87% 100%
+    }
+
+    100% {
+        background-position: 14% 0%
+    }
+}
