@@ -1,0 +1,29 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #333;
+    background-size: 400% 400%;
+    height: 100vh;
+    /* animation: AnimationName 10s ease infinite; */
+}
+
+.centerElements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardContainer {
+
+    padding: 15px;
+    box-shadow: 25px 25px 25px rgba(0, 0, 0, 0.5);
+}
+
+.form-floating{
+    margin: 10px;
+}
