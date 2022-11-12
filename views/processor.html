@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/Bootstrap/bootstrap.css">
     <link rel="stylesheet" href="../assets/css/processor.css">
-    <title>Img Processors</title>
+    <title>Img Processor</title>
 </head>
 
 <body class="centerElements">
@@ -18,23 +18,27 @@
         <div class="card p-4">
             <form action="/api/image" class="form">
                 <div class="form-floating">
-                    <input type="text" required class="form-control" id="imageName" placeholder="Image Name" name="imageName">
+                    <input type="text" list="imgNameList" required class="form-control" id="imageName"
+                        placeholder="Image Name" name="imageName">
                     <label for="imageName">Image Name</label>
+                    <datalist id="imgNameList">
+
+                    </datalist>
                 </div>
                 <div class="form-floating">
                     <input type="number" required class="form-control" id="Width" placeholder="Width" name="imgWidth">
                     <label for="Width">Width</label>
                 </div>
                 <div class="form-floating">
-                    <input type="number" required class="form-control" id="Height" placeholder="Height" name="imgHeight">
+                    <input type="number"  class="form-control" id="Height" placeholder="Height"
+                        name="imgHeight">
                     <label for="Height">Height</label>
                 </div>
                 <button type="submit" class="btn btn-danger w-100 my-3">Resize</button>
             </form>
         </div>
     </div>
-
-    <script src="assets/Bootstrap/bootstrap.bundle.js"></script>
+    <script src="../assets/Bootstrap/bootstrap.bundle.js"></script>
 </body>
 
 </html>

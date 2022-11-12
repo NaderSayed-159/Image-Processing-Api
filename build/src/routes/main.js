@@ -5,9 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var path_1 = __importDefault(require("path"));
-var validator_1 = __importDefault(require("../../utilities/middlewares/validator"));
-var image = express_1.default.Router();
-image.get('/', validator_1.default, function (req, res) {
-    res.sendFile(path_1.default.join(__dirname, '../../../views/resizedImage.html'));
+var image_1 = __importDefault(require("./api/image"));
+var routes = express_1.default.Router();
+routes.get('/', function (req, res) {
+    res.sendFile(path_1.default.join(__dirname, '../../views/processor.html'));
 });
-exports.default = image;
+routes.use('/image', image_1.default);
+exports.default = routes;

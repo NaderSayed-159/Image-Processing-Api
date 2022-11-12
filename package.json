@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "fwd 1st project",
   "main": "index.js",
+  
   "scripts": {
-    "lint": "eslint \"src/**/*.js\"",
-    "prettier": "prettier --config .prettierrc \"src/**/*.js\" --write",
+    "lint": "eslint \"build/**/*.js\"",
+    "prettier": "prettier --config .prettierrc \"build/**/*.js\" --write",
     "test": "npx tsc && nodemon ./build/index.js",
     "jasmine": "jasmine"
   },
@@ -40,6 +41,7 @@
     "express": "^4.18.2",
     "jasmine": "^4.5.0",
     "jasmine-spec-reporter": "^7.0.0",
+    "sharp": "^0.31.2",
     "supertest": "^6.3.1"
   }
 }
