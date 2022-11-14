@@ -9,8 +9,7 @@
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended"
     ],
-    "overrides": [
-    ],
+    "overrides": [],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": "latest"
@@ -19,5 +18,6 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "@typescript-eslint/no-var-requires": 0
     }
 }

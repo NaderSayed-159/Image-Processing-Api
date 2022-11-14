@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "fwd 1st project",
   "main": "index.js",
-  
   "scripts": {
     "lint": "eslint \"build/**/*.js\"",
     "prettier": "prettier --config .prettierrc \"build/**/*.js\" --write",
@@ -25,6 +24,7 @@
     "@types/jasmine": "^4.3.0",
     "@types/node": "^18.11.9",
     "@types/nodemon": "^1.19.2",
+    "@types/sharp": "^0.31.0",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
     "@typescript-eslint/parser": "^5.42.1",

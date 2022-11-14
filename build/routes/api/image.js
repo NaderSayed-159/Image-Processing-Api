@@ -17,10 +17,9 @@ image.get('/', function (req, res) {
                 var fileName = file.split('.')[0];
                 imageNames_1.push(fileName);
             });
-            console.log(imageNames_1);
         });
         if (Object.keys(req.query).length == 0) {
-            console.log(document);
+            console.log("empty");
         }
         // else if (Object.keys(req.query).length != 0) {
         //     Object.keys(req.query).forEach(Parma => {
