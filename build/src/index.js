@@ -10,8 +10,7 @@ var main_1 = __importDefault(require("./routes/main"));
 var app = (0, express_1.default)();
 var port = 3000;
 app.use(body_parser_1.default.json());
-// app.use(express.static(path.join(__dirname, './')));
-app.use('/assets', express_1.default.static('assets'));
+app.use('/public', express_1.default.static(path_1.default.join(__dirname, '../')));
 app.use(express_1.default.urlencoded({ extended: false }));
 app.get("/", function (req, res) {
     res.sendFile(path_1.default.join(__dirname, '../views/index.html'));

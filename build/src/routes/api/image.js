@@ -6,9 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var path_1 = __importDefault(require("path"));
 var fs_1 = __importDefault(require("fs"));
+// import sharp from "sharp";
 var image = express_1.default.Router();
 image.get('/', function (req, res) {
-    res.sendFile(path_1.default.join(__dirname, '../../../views/resizedImage.html'));
+    // sharp(`../../../assets/images/${req.query.imageName}.jpg`)
+    //     .resize(req.query["Width"], req.query.Height)
+    //     .toFile(`${path.join(__dirname, "../../../assets/images/thumbnails")}`, (err: string, info: string ) => { console.log(info);
+    //      });
     var imagesPath = path_1.default.join(__dirname, "../../../assets/images");
     try {
         var imageNames_1 = [];
@@ -17,21 +21,19 @@ image.get('/', function (req, res) {
                 var fileName = file.split('.')[0];
                 imageNames_1.push(fileName);
             });
-            console.log(imageNames_1);
+            if (Object.keys(req.query).length == 0) {
+                return res.sendFile(path_1.default.join(__dirname, '../../../views/processor.html'));
+            }
+            else {
+                Object.keys(req.query).forEach(function (Parma) {
+                    if (req.query[Parma] == '') {
+                        return res.sendFile(path_1.default.join(__dirname, '../../../views/processor.html'));
+                    }
+                });
+            }
+            console.log(req.query["imageName"]);
+            return res.sendFile(path_1.default.join(__dirname, '../../../views/resizedImage.html'));
         });
-        if (Object.keys(req.query).length == 0) {
-            console.log(document);
-        }
-        // else if (Object.keys(req.query).length != 0) {
-        //     Object.keys(req.query).forEach(Parma => {
-        //         if (req.query[Parma] == '') {
-        //             res.sendFile(path.join(__dirname, '../../../views/processor.html'));
-        //         }
-        //     })
-        // } else {
-        //     res.sendFile(path.join(__dirname, '../../views/resizedImage.html'));
-        //     console.log(req.query["imageName"]);
-        // }
     }
     catch (err) {
         console.log(err);

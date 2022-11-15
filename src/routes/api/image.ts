@@ -1,42 +1,35 @@
 import express from "express";
 import path from 'path';
 import fs from 'fs';
-import sharp from "sharp";
-import validator from "../../utilities/middlewares/validator";
+// import sharp from "sharp";
 
 const image = express.Router();
 
 image.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../../views/resizedImage.html'));
+    // sharp(`../../../assets/images/${req.query.imageName}.jpg`)
+    //     .resize(req.query["Width"], req.query.Height)
+    //     .toFile(`${path.join(__dirname, "../../../assets/images/thumbnails")}`, (err: string, info: string ) => { console.log(info);
+    //      });
     const imagesPath = path.join(__dirname, "../../../assets/images")
     try {
         const imageNames: (string | number)[] = [];
         fs.readdir(imagesPath, (err, files) => {
             files.forEach(file => {
-                const fileName = file.split('.')[0];
+                const fileName: string = file.split('.')[0];
                 imageNames.push(fileName)
             })
+            if (Object.keys(req.query).length == 0) {
+                return res.sendFile(path.join(__dirname, '../../../views/processor.html'));
+            } else {
+                Object.keys(req.query).forEach(Parma => {
+                    if (req.query[Parma] == '') {
+                        return res.sendFile(path.join(__dirname, '../../../views/processor.html'));
+                    }
+                })
+            }
+            console.log(req.query["imageName"]);
+            return res.sendFile(path.join(__dirname, '../../../views/resizedImage.html'));
         })
-
-        if (Object.keys(req.query).length == 0) {
-            console.log("empty");
-
-        }
-        
-        sharp(`${path.join(__dirname, "../../../assets/images")}/${req.query.imageName}.jpg`)
-            .resize(req.query[".Width"], req.query.Height)
-            .toFile(`${path.join(__dirname, "../../../assets/images/thumbnails")}`);
-
-        // else if (Object.keys(req.query).length != 0) {
-        //     Object.keys(req.query).forEach(Parma => {
-        //         if (req.query[Parma] == '') {
-        //             res.sendFile(path.join(__dirname, '../../../views/processor.html'));
-        //         }
-        //     })
-        // } else {
-        //     res.sendFile(path.join(__dirname, '../../views/resizedImage.html'));
-        //     console.log(req.query["imageName"]);
-        // }
     } catch (err) {
         console.log(err);
     }

@@ -8,7 +8,7 @@ const app = express();
 const port = 3000;
 
 app.use(bodyParser.json());
-app.use('/assets', express.static('assets'))
+app.use('/public',express.static(path.join(__dirname, '../')))
 
 app.use(express.urlencoded({ extended: false }));
 
