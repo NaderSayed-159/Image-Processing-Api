@@ -8,18 +8,17 @@ const app = express();
 const port = 3000;
 
 app.use(bodyParser.json());
-app.use('/public',express.static(path.join(__dirname, '../')))
+app.use(express.static(process.cwd()))
 
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req: express.Request, res: express.Response) => {
-    res.sendFile(path.join(__dirname,'../views/index.html'));
+    res.sendFile(path.join(process.cwd(), './views/index.html'));
 })
 
 app.use('/api', routes);
 
 app.listen(port, () => {
-    console.log(__dirname);
     console.log(`welocme on port http://localhost:${port}/`);
 })
 

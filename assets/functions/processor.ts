@@ -1,18 +1,16 @@
-async function getImageData<T>(url: string): Promise<T> {
-    const fetchedData = await fetch(url)
 
-    return await fetchedData.json();
+console.log("welcome from client side");
 
-}
+import fs from 'fs';
+import path from 'path';
+const imagesPath = path.join(__dirname, "../../../assets/images")
 
-const something = async ()=>{
-    const x = await getImageData('/api/image');
-    console.log('x', x)
-}
+const imageNames: (string | number)[] = [];
+fs.readdir(imagesPath, (err, files) => {
+    files.forEach(file => {
+        const fileName: string = file.split('.')[0];
+        imageNames.push(fileName)
+    })  
+})
 
-something()
-
-
-// function checkImageExistance(){
-
-// }
+console.log(imageNames);

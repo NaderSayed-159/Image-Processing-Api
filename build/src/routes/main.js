@@ -8,7 +8,7 @@ var path_1 = __importDefault(require("path"));
 var image_1 = __importDefault(require("./api/image"));
 var routes = express_1.default.Router();
 routes.get('/', function (req, res) {
-    res.sendFile(path_1.default.join(__dirname, '../../views/processor.html'));
+    res.sendFile(path_1.default.join(process.cwd(), './views/processor.html'));
 });
 routes.use('/image', image_1.default);
 exports.default = routes;

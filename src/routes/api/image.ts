@@ -1,7 +1,8 @@
 import express from "express";
 import path from 'path';
 import fs from 'fs';
-// import sharp from "sharp";
+import sharp from "sharp";
+import imageDataset from "./imageDataset";
 
 const image = express.Router();
 
@@ -10,29 +11,47 @@ image.get('/', (req, res) => {
     //     .resize(req.query["Width"], req.query.Height)
     //     .toFile(`${path.join(__dirname, "../../../assets/images/thumbnails")}`, (err: string, info: string ) => { console.log(info);
     //      });
-    const imagesPath = path.join(__dirname, "../../../assets/images")
+    const imagesPath = path.join(process.cwd(), "./assets/images")
+
     try {
         const imageNames: (string | number)[] = [];
-        fs.readdir(imagesPath, (err, files) => {
+        fs.readdir(imagesPath, async (err, files) => {
             files.forEach(file => {
                 const fileName: string = file.split('.')[0];
                 imageNames.push(fileName)
             })
             if (Object.keys(req.query).length == 0) {
-                return res.sendFile(path.join(__dirname, '../../../views/processor.html'));
+                console.log('no paramaters');
+
+                return res.sendFile(path.join(process.cwd(), './views/processor.html'));
+            } else if (Object.values(req.query).includes('')) {
+                console.log('missed paramter');
+                return res.sendFile(path.join(process.cwd(), './views/processor.html'));
+                // Object.keys(req.query).forEach(Parma => {
+                //     if (req.query[Parma] == '') {
+                //         console.log('missed paramter');
+                //         return res.sendFile(path.join(process.cwd(), './views/processor.html'));
+                //     }
+                // })
             } else {
-                Object.keys(req.query).forEach(Parma => {
-                    if (req.query[Parma] == '') {
-                        return res.sendFile(path.join(__dirname, '../../../views/processor.html'));
-                    }
-                })
+                const resizedimgName = req.query["imageName"];
+                const imgWidth: number = parseInt(req.query["imgWidth"] as string)
+                const imgHeight: number = parseInt(req.query["imgHeight"] as string)
+                const resizedImgPath = `${imagesPath}\\${req.query["imageName"]}.jpg`
+                const outputFolder = path.join(process.cwd(), `./assets/images/thumbnails/${resizedimgName}_${imgWidth}_${imgHeight}.jpg`)
+
+                await sharp(resizedImgPath)
+                    .resize(imgWidth, imgHeight)
+                    .toFormat("jpg")
+                    .toFile(outputFolder)
+
+                return res.sendFile(resizedImgPath);
             }
-            console.log(req.query["imageName"]);
-            return res.sendFile(path.join(__dirname, '../../../views/resizedImage.html'));
         })
     } catch (err) {
         console.log(err);
     }
 })
 
+image.use('/data', imageDataset)
 export default image;

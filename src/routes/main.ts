@@ -6,8 +6,8 @@ import image from './api/image'
 const routes = express.Router();
 
 
-routes.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname, '../../views/processor.html'));
+routes.get('/',(req,res)=>{    
+    res.sendFile(path.join(process.cwd(), './views/processor.html'));
 })
 
 routes.use('/image',image);

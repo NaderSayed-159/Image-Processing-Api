@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint \"build/**/*.js\"",
     "prettier": "prettier --config .prettierrc \"build/**/*.js\" --write",
-    "test": "npx tsc && nodemon ./build/index.js",
+    "test": "npx tsc && nodemon ./build/src/index.js",
     "jasmine": "jasmine"
   },
   "repository": {
