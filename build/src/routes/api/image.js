@@ -44,8 +44,9 @@ var path_1 = __importDefault(require("path"));
 var fs_1 = __importDefault(require("fs"));
 var sharp_1 = __importDefault(require("sharp"));
 var imageDataset_1 = __importDefault(require("./imageDataset"));
+var resizedImgs_1 = __importDefault(require("./resizedImgs"));
 var image = express_1.default.Router();
-image.get('/', function (req, res) {
+image.get('/', resizedImgs_1.default, function (req, res) {
     // sharp(`../../../assets/images/${req.query.imageName}.jpg`)
     //     .resize(req.query["Width"], req.query.Height)
     //     .toFile(`${path.join(__dirname, "../../../assets/images/thumbnails")}`, (err: string, info: string ) => { console.log(info);
@@ -53,14 +54,16 @@ image.get('/', function (req, res) {
     var imagesPath = path_1.default.join(process.cwd(), "./assets/images");
     try {
         var imageNames_1 = [];
+        // const Extensions: string[] = [];
         fs_1.default.readdir(imagesPath, function (err, files) { return __awaiter(void 0, void 0, void 0, function () {
-            var resizedimgName, imgWidth, imgHeight, resizedImgPath, resizedImgPath1, outputFolder;
+            var resizedimgName, imgWidth, imgHeight, resizedImgPath, outputFolder;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         files.forEach(function (file) {
                             var fileName = file.split('.')[0];
                             imageNames_1.push(fileName);
+                            // Extensions.push(file.split('.')[1])
                         });
                         if (!(Object.keys(req.query).length == 0)) return [3 /*break*/, 1];
                         console.log('no paramaters');
@@ -74,20 +77,15 @@ image.get('/', function (req, res) {
                         imgWidth = parseInt(req.query["imgWidth"]);
                         imgHeight = parseInt(req.query["imgHeight"]);
                         resizedImgPath = "".concat(imagesPath, "\\").concat(req.query["imageName"], ".jpg");
-                        resizedImgPath1 = path_1.default.join(imagesPath, '/', resizedimgName);
-                        outputFolder = "".concat(imagesPath, "\\thumbnials");
-                        // console.log('imagesPath', imagesPath);
+                        outputFolder = path_1.default.join(process.cwd(), "./assets/images/thumbnails/".concat(resizedimgName, "_").concat(imgWidth, "_").concat(imgHeight, ".jpg"));
                         return [4 /*yield*/, (0, sharp_1.default)(resizedImgPath)
                                 .resize(imgWidth, imgHeight)
                                 .toFormat("jpg")
-                                .toFile(path_1.default.join(process.cwd(), "./assets/images/thumbnails/".concat(resizedimgName, "_").concat(imgWidth, "_").concat(imgHeight, ".jpg")))
-                            // console.log('resized', `${imagesPath}\\${req.query["imageName"]}.jpg`)
-                        ];
+                                .toFile(outputFolder)];
                     case 3:
-                        // console.log('imagesPath', imagesPath);
                         _a.sent();
-                        // console.log('resized', `${imagesPath}\\${req.query["imageName"]}.jpg`)
-                        return [2 /*return*/, res.sendFile(resizedImgPath)];
+                        console.log('process done');
+                        return [2 /*return*/, res.sendFile(path_1.default.join(process.cwd(), "/assets/images/thumbnails/".concat(resizedimgName, "_").concat(imgWidth, "_").concat(imgHeight, ".jpg")))];
                 }
             });
         }); });

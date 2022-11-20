@@ -15,9 +15,9 @@
         <div class="cardHeader m-4">
             <h1>Image Proccessing API</h1>
         </div>
-        <div class="card p-4">
-            <form action="/api/image" class="form">
-                <div class="form-floating">
+        <div class="card p-4" id="FormConatiner">
+            <form action="/api/image" class="form" id="resizingForm">
+                <div class="form-floating" >
                     <input type="text" list="imgNameList" required class="form-control" id="imageName"
                         placeholder="Image Name" name="imageName">
                     <label for="imageName">Image Name</label>
@@ -30,15 +30,16 @@
                     <label for="Width">Width</label>
                 </div>
                 <div class="form-floating">
-                    <input type="number"  class="form-control" id="Height" placeholder="Height"
+                    <input type="number" required class="form-control" id="Height" placeholder="Height"
                         name="imgHeight">
                     <label for="Height">Height</label>
                 </div>
-                <button type="submit" class="btn btn-danger w-100 my-3">Resize</button>
+                <button type="submit" class="btn btn-danger w-100 my-3" id="resizingBtn">Resize</button>
             </form>
         </div>
     </div>
-    <script src="../assets/Bootstrap/bootstrap.bundle.js"></script>
+    <script src="../assets/Bootstrap/bootstrap.bundle.js" type="module"></script>
+    <script src="../build/assets/functions/processor.js"></script>
 </body>
 
 </html>

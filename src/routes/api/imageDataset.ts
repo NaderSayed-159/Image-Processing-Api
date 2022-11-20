@@ -5,20 +5,23 @@ import fs from 'fs';
 
 
 const imageDataset = express.Router();
-const imageNames: (string | number)[] = [];
 
 imageDataset.get('/', (req, res) => {
-    res.send(JSON.stringify(imageNames))
+    const imageNames: (string | number)[] = [];
 
     const imagesPath = path.join(process.cwd(), "./assets/images");
     fs.readdir(imagesPath, (err, files) => {
         files.forEach(file => {
-            const fileName: string = file.split('.')[0];
-            imageNames.push(fileName)
+            if(file.endsWith('.jpg')){
+                const fileName: string = file.split('.')[0];
+                imageNames.push(fileName)
+            }
+     
         })
+        res.json(imageNames)
+
     })
 
-    res.json(imageNames)
 })
 
 export default imageDataset;

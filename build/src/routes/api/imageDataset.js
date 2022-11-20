@@ -7,16 +7,17 @@ var express_1 = __importDefault(require("express"));
 var path_1 = __importDefault(require("path"));
 var fs_1 = __importDefault(require("fs"));
 var imageDataset = express_1.default.Router();
-var imageNames = [];
 imageDataset.get('/', function (req, res) {
-    res.send(JSON.stringify(imageNames));
+    var imageNames = [];
     var imagesPath = path_1.default.join(process.cwd(), "./assets/images");
     fs_1.default.readdir(imagesPath, function (err, files) {
         files.forEach(function (file) {
-            var fileName = file.split('.')[0];
-            imageNames.push(fileName);
+            if (file.endsWith('.jpg')) {
+                var fileName = file.split('.')[0];
+                imageNames.push(fileName);
+            }
         });
+        res.json(imageNames);
     });
-    res.json(imageNames);
 });
 exports.default = imageDataset;

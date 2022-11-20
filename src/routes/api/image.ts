@@ -3,10 +3,11 @@ import path from 'path';
 import fs from 'fs';
 import sharp from "sharp";
 import imageDataset from "./imageDataset";
+import resizedImgs from "./resizedImgs";
 
 const image = express.Router();
 
-image.get('/', (req, res) => {
+image.get('/', resizedImgs, (req, res) => {
     // sharp(`../../../assets/images/${req.query.imageName}.jpg`)
     //     .resize(req.query["Width"], req.query.Height)
     //     .toFile(`${path.join(__dirname, "../../../assets/images/thumbnails")}`, (err: string, info: string ) => { console.log(info);
@@ -15,10 +16,12 @@ image.get('/', (req, res) => {
 
     try {
         const imageNames: (string | number)[] = [];
+        // const Extensions: string[] = [];
         fs.readdir(imagesPath, async (err, files) => {
             files.forEach(file => {
                 const fileName: string = file.split('.')[0];
                 imageNames.push(fileName)
+                // Extensions.push(file.split('.')[1])
             })
             if (Object.keys(req.query).length == 0) {
                 console.log('no paramaters');
@@ -27,12 +30,6 @@ image.get('/', (req, res) => {
             } else if (Object.values(req.query).includes('')) {
                 console.log('missed paramter');
                 return res.sendFile(path.join(process.cwd(), './views/processor.html'));
-                // Object.keys(req.query).forEach(Parma => {
-                //     if (req.query[Parma] == '') {
-                //         console.log('missed paramter');
-                //         return res.sendFile(path.join(process.cwd(), './views/processor.html'));
-                //     }
-                // })
             } else {
                 const resizedimgName = req.query["imageName"];
                 const imgWidth: number = parseInt(req.query["imgWidth"] as string)
@@ -44,8 +41,9 @@ image.get('/', (req, res) => {
                     .resize(imgWidth, imgHeight)
                     .toFormat("jpg")
                     .toFile(outputFolder)
-
-                return res.sendFile(resizedImgPath);
+                console.log('process done');
+                return res.sendFile(path.join(process.cwd(), `/assets/images/thumbnails/${resizedimgName}_${imgWidth}_${imgHeight}.jpg`));
+                
             }
         })
     } catch (err) {
