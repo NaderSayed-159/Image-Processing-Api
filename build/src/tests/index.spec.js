@@ -40,14 +40,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var supertest_1 = __importDefault(require("supertest"));
-var index_1 = __importDefault(require("../index"));
-var req = (0, supertest_1.default)(index_1.default);
-describe('Test endpoint', function () {
-    it('get apis endpoint', function (done) { return __awaiter(void 0, void 0, void 0, function () {
+var __1 = __importDefault(require(".."));
+var req = (0, supertest_1.default)(__1.default);
+describe('Test endpoints', function () {
+    it('Test resizing form endpoint', function (done) { return __awaiter(void 0, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get('/api')];
+                case 0: return [4 /*yield*/, req.get('/api/image')];
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(200);
@@ -56,5 +56,4 @@ describe('Test endpoint', function () {
             }
         });
     }); });
-    //how to test express endpoint with jasmine?
 });

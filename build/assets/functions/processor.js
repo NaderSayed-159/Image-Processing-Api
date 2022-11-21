@@ -35,6 +35,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.isImgExist = void 0;
+var isImgExist = function (imgName, folderImgs) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        return [2 /*return*/, folderImgs.includes(imgName)];
+    });
+}); };
+exports.isImgExist = isImgExist;
 var fetchingImages = function (url) { return __awaiter(void 0, void 0, void 0, function () {
     var fetchedData;
     return __generator(this, function (_a) {
@@ -61,7 +69,6 @@ document.addEventListener('DOMContentLoaded', function () { return __awaiter(voi
             case 0: return [4 /*yield*/, fetchingImages('/api/image/data')];
             case 1:
                 fetchedData = _a.sent();
-                console.log('fetchedData', fetchedData);
                 imgList = document.getElementById('imgNameList');
                 fetchedData.forEach(function (img) {
                     imgList.innerHTML += "<option value=\"".concat(img, "\">");
@@ -70,17 +77,6 @@ document.addEventListener('DOMContentLoaded', function () { return __awaiter(voi
         }
     });
 }); });
-var isImgExist = function (imgName) { return __awaiter(void 0, void 0, void 0, function () {
-    var folderImgs;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, fetchingImages('/api/image/data')];
-            case 1:
-                folderImgs = _a.sent();
-                return [2 /*return*/, folderImgs.includes(imgName)];
-        }
-    });
-}); };
 var showAlert = function (messege, className, container, showinPlace) {
     var div = document.createElement('div');
     div.className = "alert alert-".concat(className, " m-3");
@@ -93,13 +89,20 @@ var showAlert = function (messege, className, container, showinPlace) {
 var resizingForm = document.getElementById("resizingForm");
 var formContainer = document.getElementById("FormConatiner");
 resizingForm.addEventListener('submit', function (event) { return __awaiter(void 0, void 0, void 0, function () {
-    var imgName;
+    var imgName, folderImgs, imgInFolder;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                imgName = document.getElementById("imageName").value;
-                return [4 /*yield*/, isImgExist(imgName)];
+                imgName = document.getElementById("imageName");
+                return [4 /*yield*/, fetchingImages('/api/image/data')];
             case 1:
+                folderImgs = _a.sent();
+                return [4 /*yield*/, (0, exports.isImgExist)(imgName.value, folderImgs)];
+            case 2:
+                imgInFolder = _a.sent();
+                console.log('imgInFolder', imgInFolder);
+                return [4 /*yield*/, (0, exports.isImgExist)(imgName.value, folderImgs)];
+            case 3:
                 if (!(_a.sent())) {
                     showAlert("Image doesn't Exist", "danger", formContainer, resizingForm);
                     event.preventDefault();
