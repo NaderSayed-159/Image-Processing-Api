@@ -46,7 +46,7 @@ var sharp_1 = __importDefault(require("sharp"));
 var imageDataset_1 = __importDefault(require("./imageDataset"));
 var resizedImgs_1 = __importDefault(require("./resizedImgs"));
 var image = express_1.default.Router();
-image.get('/', resizedImgs_1.default, function (req, res) {
+image.get('/', function (req, res) {
     // sharp(`../../../assets/images/${req.query.imageName}.jpg`)
     //     .resize(req.query["Width"], req.query.Height)
     //     .toFile(`${path.join(__dirname, "../../../assets/images/thumbnails")}`, (err: string, info: string ) => { console.log(info);
@@ -56,7 +56,7 @@ image.get('/', resizedImgs_1.default, function (req, res) {
         var imageNames_1 = [];
         // const Extensions: string[] = [];
         fs_1.default.readdir(imagesPath, function (err, files) { return __awaiter(void 0, void 0, void 0, function () {
-            var resizedimgName, imgWidth, imgHeight, resizedImgPath, outputFolder;
+            var resizedimgName, imgWidth, imgHeight, resizedImgPath, outputFolder, resizedImgName;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -78,14 +78,19 @@ image.get('/', resizedImgs_1.default, function (req, res) {
                         imgHeight = parseInt(req.query["imgHeight"]);
                         resizedImgPath = "".concat(imagesPath, "\\").concat(req.query["imageName"], ".jpg");
                         outputFolder = path_1.default.join(process.cwd(), "./assets/images/thumbnails/".concat(resizedimgName, "_").concat(imgWidth, "_").concat(imgHeight, ".jpg"));
+                        resizedImgName = "".concat(resizedimgName, "_").concat(imgWidth, "_").concat(imgHeight);
+                        if (!!resizedImgs_1.default.includes(resizedImgName)) return [3 /*break*/, 4];
                         return [4 /*yield*/, (0, sharp_1.default)(resizedImgPath)
                                 .resize(imgWidth, imgHeight)
                                 .toFormat("jpg")
                                 .toFile(outputFolder)];
                     case 3:
                         _a.sent();
-                        console.log('process done');
-                        return [2 /*return*/, res.sendFile(path_1.default.join(process.cwd(), "/assets/images/thumbnails/".concat(resizedimgName, "_").concat(imgWidth, "_").concat(imgHeight, ".jpg")))];
+                        console.log('process');
+                        return [2 /*return*/, res.sendFile(path_1.default.join(process.cwd(), "/assets/images/thumbnails/".concat(resizedImgName, ".jpg")))];
+                    case 4:
+                        console.log('no process');
+                        return [2 /*return*/, res.sendFile(path_1.default.join(process.cwd(), "/assets/images/thumbnails/".concat(resizedImgName, ".jpg")))];
                 }
             });
         }); });

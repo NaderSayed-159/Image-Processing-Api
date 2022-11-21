@@ -3,11 +3,11 @@ import path from 'path';
 import fs from 'fs';
 import sharp from "sharp";
 import imageDataset from "./imageDataset";
-import resizedImgs from "./resizedImgs";
+import resizedimgsArr from "./resizedImgs";
 
 const image = express.Router();
 
-image.get('/', resizedImgs, (req, res) => {
+image.get('/', (req, res) => {
     // sharp(`../../../assets/images/${req.query.imageName}.jpg`)
     //     .resize(req.query["Width"], req.query.Height)
     //     .toFile(`${path.join(__dirname, "../../../assets/images/thumbnails")}`, (err: string, info: string ) => { console.log(info);
@@ -36,14 +36,19 @@ image.get('/', resizedImgs, (req, res) => {
                 const imgHeight: number = parseInt(req.query["imgHeight"] as string)
                 const resizedImgPath = `${imagesPath}\\${req.query["imageName"]}.jpg`
                 const outputFolder = path.join(process.cwd(), `./assets/images/thumbnails/${resizedimgName}_${imgWidth}_${imgHeight}.jpg`)
+                const resizedImgName = `${resizedimgName}_${imgWidth}_${imgHeight}`
 
-                await sharp(resizedImgPath)
-                    .resize(imgWidth, imgHeight)
-                    .toFormat("jpg")
-                    .toFile(outputFolder)
-                console.log('process done');
-                return res.sendFile(path.join(process.cwd(), `/assets/images/thumbnails/${resizedimgName}_${imgWidth}_${imgHeight}.jpg`));
-                
+                if (!resizedimgsArr.includes(resizedImgName)) {
+                    await sharp(resizedImgPath)
+                        .resize(imgWidth, imgHeight)
+                        .toFormat("jpg")
+                        .toFile(outputFolder)
+                    return res.sendFile(path.join(process.cwd(), `/assets/images/thumbnails/${resizedImgName}.jpg`));
+                } else {
+                    return res.sendFile(path.join(process.cwd(), `/assets/images/thumbnails/${resizedImgName}.jpg`));
+                }
+
+
             }
         })
     } catch (err) {
