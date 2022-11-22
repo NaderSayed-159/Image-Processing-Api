@@ -5,11 +5,12 @@ import image from './api/image'
 
 const routes = express.Router();
 
-
+//form route
 routes.get('/', (req: express.Request, res: express.Response)=>{    
     res.sendFile(path.join(process.cwd(), './views/processor.html'));
 })
 
+//resized img route
 routes.use('/image',image);
 
 

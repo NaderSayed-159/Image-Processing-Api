@@ -7,6 +7,8 @@ import fs from 'fs';
 const imageDataset = express.Router();
 
 const imageNamesDataSet: (string | number)[] = [];
+
+//creating api on route data of all images in images folder to fetch it from client side by fetching 
 imageDataset.get('/', (req, res) => {
 
     const imagesPath = path.join(process.cwd(), "./assets/images");

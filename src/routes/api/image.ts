@@ -5,24 +5,28 @@ import imageDataset from "./imageDataset";
 import resizedimgsArr, { resizeImg }from "../../utilities/resizedImgs";
 
 const image = express.Router();
+
+//hadnle routes
 image.get('/', (req:express.Request, res:express.Response) => {
     const imagesPath = path.join(process.cwd(), "./assets/images")
+    //do validation on request apply resizing 
     try {
         const imageNames: (string | number)[] = [];
+        //get all imgs in images folder
         fs.readdir(imagesPath, async (err, files) => {
             files.forEach(file => {
                 const fileName: string = file.split('.')[0];
                 imageNames.push(fileName)
             })
+            //validations on params
             if (Object.keys(req.query).length == 0) {
                 console.log('no paramaters');
                 res.status(400).send('you should add parameters')
             } else if (Object.values(req.query).includes('')) {
                 res.status(400).send(`no paramter should be empty`)
-
             } else {
+                // in case passing validation will start resizing process
                 //parameters
-                // const { imgName, imgWidth, imgHeight } = req.query
                 const imgName: string = req.query["imageName"] as string;
                 const imgWidth = parseInt(req.query["imgWidth"] as string)
                 const imgHeight= parseInt(req.query["imgHeight"] as string)
