@@ -12,9 +12,6 @@ fs.readdir(imagesPath, (err, files) => {
             resized.push(fileName)
         }
     })
-
 })
-
-
 
 export default resized;

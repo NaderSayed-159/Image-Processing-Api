@@ -8,6 +8,7 @@
     "prettier": "prettier --config .prettierrc \"build/**/*.js\" --write",
     "build": "npx tsc",
     "nodemon": "nodemon ./build/src/index.js",
+    "buildr": "npx tsc && nodemon ./build/src/index.js",
     "jasmine": "jasmine"
   },
   "repository": {
