@@ -13,6 +13,11 @@ describe('Test endpoints', () => {
         expect(res.status).toBe(200);
     })
 
+    it('test image endpoint no parmas', async () => {
+        const res = await req.get('/api/image');
+        expect(res.status).toBe(400);
+    })
+
     it('Test all images end point', async () => {
         const res = await req.get('/api/image/data');
         expect(res.status).toBe(200);
@@ -20,8 +25,8 @@ describe('Test endpoints', () => {
 
 })
 
-describe('Test Img Fucntions',()=>{
-    it('test resizing function',async ()=>{
+describe('Test Img Fucntions', () => {
+    it('test resizing function', async () => {
         expectAsync(resizeImg(imagesPath, 300, 300, outputFolder)).toBeResolved();
     })
 })

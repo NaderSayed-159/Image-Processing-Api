@@ -60,6 +60,18 @@ describe('Test endpoints', function () {
             }
         });
     }); });
+    it('test image endpoint no parmas', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var res;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, req.get('/api/image')];
+                case 1:
+                    res = _a.sent();
+                    expect(res.status).toBe(400);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
     it('Test all images end point', function () { return __awaiter(void 0, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
