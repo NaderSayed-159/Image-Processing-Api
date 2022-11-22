@@ -42,13 +42,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable */
 var supertest_1 = __importDefault(require("supertest"));
 var __1 = __importDefault(require(".."));
+var path_1 = __importDefault(require("path"));
+var resizedImgs_1 = require("../utilities/resizedImgs");
 var req = (0, supertest_1.default)(__1.default);
+var imagesPath = path_1.default.join(process.cwd(), "./assets/images/fjord.jpg");
+var outputFolder = path_1.default.join(process.cwd(), "./assets/images/thumbnails/test.jpg");
 describe('Test endpoints', function () {
     it('Test resizing form endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get('/api/image')];
+                case 0: return [4 /*yield*/, req.get('/api')];
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(200);
@@ -66,6 +70,14 @@ describe('Test endpoints', function () {
                     expect(res.status).toBe(200);
                     return [2 /*return*/];
             }
+        });
+    }); });
+});
+describe('Test Img Fucntions', function () {
+    it('test resizing function', function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            expectAsync((0, resizedImgs_1.resizeImg)(imagesPath, 300, 300, outputFolder)).toBeResolved();
+            return [2 /*return*/];
         });
     }); });
 });

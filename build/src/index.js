@@ -7,7 +7,6 @@ var express_1 = __importDefault(require("express"));
 var path_1 = __importDefault(require("path"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var main_1 = __importDefault(require("./routes/main"));
-var gallery_1 = __importDefault(require("./routes/gallery"));
 var app = (0, express_1.default)();
 var port = 3000;
 app.use(body_parser_1.default.json());
@@ -17,7 +16,6 @@ app.get("/", function (req, res) {
     res.sendFile(path_1.default.join(process.cwd(), './views/index.html'));
 });
 app.use('/api', main_1.default);
-app.use('/gallery', gallery_1.default);
 app.listen(port, function () {
     console.log("welocme on port http://localhost:".concat(port, "/"));
 });

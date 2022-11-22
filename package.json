@@ -9,7 +9,8 @@
     "build": "npx tsc",
     "nodemon": "nodemon ./build/src/index.js",
     "buildr": "npx tsc && nodemon ./build/src/index.js",
-    "jasmine": "jasmine"
+    "jasmine": "jasmine",
+    "test": "npx tsc && jasmine"
   },
   "repository": {
     "type": "git",

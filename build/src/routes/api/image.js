@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -42,13 +65,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var path_1 = __importDefault(require("path"));
 var fs_1 = __importDefault(require("fs"));
-var sharp_1 = __importDefault(require("sharp"));
 var imageDataset_1 = __importDefault(require("./imageDataset"));
-var resizedImgs_1 = __importDefault(require("../../utilities/resizedImgs"));
+var resizedImgs_1 = __importStar(require("../../utilities/resizedImgs"));
 var image = express_1.default.Router();
-// export const isImgExist = async (imgName: string, folderImgs: string[]): Promise<boolean> => {
-//     return folderImgs.includes(imgName)
-// }
 image.get('/', function (req, res) {
     var imagesPath = path_1.default.join(process.cwd(), "./assets/images");
     try {
@@ -64,11 +83,12 @@ image.get('/', function (req, res) {
                         });
                         if (!(Object.keys(req.query).length == 0)) return [3 /*break*/, 1];
                         console.log('no paramaters');
-                        return [2 /*return*/, res.sendFile(path_1.default.join(process.cwd(), './views/processor.html'))];
+                        res.status(400).send('you should add parameters');
+                        return [3 /*break*/, 7];
                     case 1:
                         if (!Object.values(req.query).includes('')) return [3 /*break*/, 2];
-                        console.log('missed paramter');
-                        return [2 /*return*/, res.sendFile(path_1.default.join(process.cwd(), './views/processor.html'))];
+                        res.status(400).send("no paramter should be empty");
+                        return [3 /*break*/, 7];
                     case 2:
                         imgName = req.query["imageName"];
                         imgWidth = parseInt(req.query["imgWidth"]);
@@ -79,10 +99,7 @@ image.get('/', function (req, res) {
                         if (!imageNames_1.includes(imgName)) return [3 /*break*/, 6];
                         if (!resizedImgs_1.default.includes(resizedImgName)) return [3 /*break*/, 3];
                         return [2 /*return*/, res.sendFile(path_1.default.join(process.cwd(), "/assets/images/thumbnails/".concat(resizedImgName, ".jpg")))];
-                    case 3: return [4 /*yield*/, (0, sharp_1.default)(resizedImgPath)
-                            .resize(imgWidth, imgHeight)
-                            .toFormat("jpg")
-                            .toFile(outputFolder)];
+                    case 3: return [4 /*yield*/, (0, resizedImgs_1.resizeImg)(resizedImgPath, imgWidth, imgHeight, outputFolder)];
                     case 4:
                         _a.sent();
                         return [2 /*return*/, res.sendFile(path_1.default.join(process.cwd(), "/assets/images/thumbnails/".concat(resizedImgName, ".jpg")))];
@@ -94,7 +111,7 @@ image.get('/', function (req, res) {
         }); });
     }
     catch (err) {
-        console.log(err);
+        res.send('image Processes Error Try again');
     }
 });
 image.use('/data', imageDataset_1.default);

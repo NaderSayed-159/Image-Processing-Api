@@ -2,7 +2,6 @@ import express from "express";
 import path from 'path';
 import bodyParser from "body-parser";
 import routes from "./routes/main";
-import gallery from "./routes/gallery";
 
 
 const app = express();
@@ -18,7 +17,6 @@ app.get("/", (req: express.Request, res: express.Response) => {
 })
 
 app.use('/api', routes);
-app.use('/gallery', gallery);
 
 app.listen(port, () => {
     console.log(`welocme on port http://localhost:${port}/`);

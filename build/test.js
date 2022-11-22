@@ -35,30 +35,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var fetchingImages = function (url) { return __awaiter(void 0, void 0, void 0, function () {
-    var fetchedData;
+var processImage = function (params) { return __awaiter(void 0, void 0, void 0, function () {
+    var output, error_1, message;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, fetch(url)];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, sharp(params.src)
+                        .resize(params.width, params.height)
+                        .toFile(params.target)];
             case 1:
-                fetchedData = _a.sent();
-                return [4 /*yield*/, fetchedData.json()];
-            case 2: return [2 /*return*/, _a.sent()];
+                output = _a.sent();
+                return [2 /*return*/, {
+                        success: true,
+                        output: output
+                    }];
+            case 2:
+                error_1 = _a.sent();
+                message = 'Image could not be processed.';
+                if (error_1 instanceof Error && error_1.message)
+                    message = error_1.message;
+                return [2 /*return*/, {
+                        success: false,
+                        message: message
+                    }];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
-document.addEventListener('DOMContentLoaded', function () { return __awaiter(void 0, void 0, void 0, function () {
-    var fetchedData, imgList;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, fetchingImages('/api/image/data')];
-            case 1:
-                fetchedData = _a.sent();
-                imgList = document.getElementById('imgNameList');
-                fetchedData.forEach(function (img) {
-                    imgList.innerHTML += "<option value=\"".concat(img, "\">");
-                });
-                return [2 /*return*/];
-        }
-    });
-}); });
