@@ -16,5 +16,6 @@
 
 * We have views folder contains all UIs of Project
 * after runing the project will open home page with have redrect button to resizing form
+* in Image name field you can select form drop list the avaiable imgs
 * after filling form and press send depends on input will route you to certin Ui
 * if the inputed img doesn't exist will forward you to Ui with error msg
