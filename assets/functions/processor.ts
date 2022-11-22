@@ -16,17 +16,3 @@ document.addEventListener('DOMContentLoaded',async()=>{
  
 
 
-// const showAlert = (messege: string, className: string, container: HTMLElement, showinPlace: HTMLElement) => {
-//     const div = document.createElement('div');
-//     div.className = `alert alert-${className} m-3`;
-//     div.id = `alert`;
-//     div.appendChild(document.createTextNode(messege));
-//     container.insertBefore(div, showinPlace);
-//     setTimeout(() => getElement('alert').remove(),
-//         3000);
-// }
-
-
-
-
-
