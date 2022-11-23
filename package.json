@@ -4,8 +4,8 @@
   "description": "fwd 1st project",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint \"build/**/*.js\"",
-    "prettier": "prettier --config .prettierrc \"build/**/*.js\" --write",
+    "lint": "eslint \"src/**/*.ts\"",
+    "prettier": "prettier --config .prettierrc \"src/**/*.ts\" --write",
     "build": "npx tsc",
     "nodemon": "nodemon ./build/src/index.js",
     "buildr": "npx tsc && nodemon ./build/src/index.js",
