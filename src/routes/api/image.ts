@@ -25,7 +25,7 @@ image.get("/", (req: express.Request, res: express.Response): void => {
       } else if (Object.values(req.query).includes("")) {
         res.status(400).send(`no paramter should be empty`);
       } else if (Object.values(req.query).includes("0")) {
-        res.status(400).send("height or width can't be zero")
+        res.status(400).send("height or width can't be zero");
       } else {
         // in case passing validation will start resizing process
         //parameters
